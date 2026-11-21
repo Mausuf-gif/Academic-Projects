@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Appointments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Admin Panel: Appointment List</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>{% for msg in messages %}<li>{{ msg }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Client Name</th>
+            <th>Phone</th>
+            <th>Car License</th>
+            <th>Appointment Date</th>
+            <th>Mechanic</th>
+            <th>Update Appointment</th>
+        </tr>
+        {% for appt in appointments %}
+        <tr>
+            <td>{{ appt.client.name }}</td>
+            <td>{{ appt.client.phone }}</td>
+            <td>{{ appt.client.car_license }}</td>
+            <td>{{ appt.appointment_date }}</td>
+            <td>{{ appt.mechanic.name }}</td>
+            <td>
+                <form method="post" action="{{ url_for('update_appointment', appointment_id=appt.id) }}">
+                    <input type="date" name="new_date" required>
+                    <select name="new_mechanic" required>
+                        {% for m in mechanics %}
+                            <option value="{{ m.id }}" {% if m.id == appt.mechanic_id %}selected{% endif %}>{{ m.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
