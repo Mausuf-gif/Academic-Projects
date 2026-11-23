@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h2>Send a Message</h2>
+<form method="POST">
+    Receiver ID: <input type="text" name="receiver_id"><br>
+    Message: <textarea name="content"></textarea><br>
+    <input type="submit" value="Send">
+</form>
+{% endblock %}
