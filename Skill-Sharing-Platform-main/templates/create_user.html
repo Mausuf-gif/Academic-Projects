@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create New User</h2>
+        <form action="{{ url_for('create_user') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="name">Name</label>
+                {{ form.name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="phone_no">Phone Number</label>
+                {{ form.phone_no(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                {{ form.address(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                {{ form.confirm_password(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="user_type">User Type</label>
+                {{ form.user_type(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

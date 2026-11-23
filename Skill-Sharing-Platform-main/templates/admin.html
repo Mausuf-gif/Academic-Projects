@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ url_for('logout') }}">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Admin, {{ current_user.name }}!</h2>
+        <p>This is the admin dashboard. Here you can manage users, courses, and other administrative tasks.</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Manage Users</h3>
+                <p><a href="{{ url_for('view_users') }}">View all users</a></p>
+                <p><a href="{{ url_for('create_user') }}">Create new user</a></p>
+                
+            </div>
+            <div class="col-md-4">
+                <h3>Manage Courses</h3>
+                <p><a href="{{ url_for('view_courses') }}">View all courses</a></p>
+                <p><a href="{{ url_for('create_course') }}">Create new course</a>
+            
+            </div>
+            <div class="col-md-4">
+                <h3>Reports</h3>
+                <p><a href="#">View reports</a></p>
+                <p><a href="#">Generate new report</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

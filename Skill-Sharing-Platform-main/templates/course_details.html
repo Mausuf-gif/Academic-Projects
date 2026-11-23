@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.course_name }} - Course Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .course-header {
+            margin-bottom: 30px;
+        }
+
+        .average-rating {
+            font-size: 1.5rem;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .review-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .review-rating {
+            font-size: 1.2rem;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .no-reviews {
+            font-size: 1rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="course-header">{{ course.course_name }}</h1>
+        <p>{{ course.description }}</p>
+        <p><strong>Duration:</strong> {{ course.duration }}</p>
+        <p><strong>Level:</strong> {{ course.skill_level }}</p>
+        <p><strong>Provided by:</strong> {{ course.provider.name }}</p>
+
+        {% if course.average_rating() %}
+            <p class="average-rating">⭐ Average Rating: {{ course.average_rating() }} / 5</p>
+        {% else %}
+            <p class="no-reviews">No ratings yet. Be the first to leave a review!</p>
+        {% endif %}
+
+        <hr>
+
+        <!-- Submit a Review Section -->
+        {% if can_review %}
+            <h2>Submit Your Review</h2>
+            <form action="{{ url_for('submit_review', course_id=course.id) }}" method="POST">
+                <div class="form-group">
+                    <label for="rating">Rating (1-5)</label>
+                    <select id="rating" name="rating" class="form-control" required>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="review">Review</label>
+                    <textarea id="review" name="review" class="form-control" rows="3" placeholder="Share your experience with this course"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        {% else %}
+            <p class="text-danger">You must purchase this course to leave a review.</p>
+        {% endif %}
+
+        <hr>
+
+        <!-- Reviews Section -->
+        <h2>Reviews</h2>
+        <div class="review-list">
+            {% if course.reviews %}
+                {% for review in course.reviews %}
+                    <div class="review-item">
+                        <p><span class="review-rating">⭐ {{ review.rating }} / 5</span></p>
+                        <p>{{ review.review }}</p>
+                        <small class="text-muted">Reviewed by {{ review.client.name }} on {{ review.created_at.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-reviews">No reviews yet. Be the first to leave a review!</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2025 Skill Sharing Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

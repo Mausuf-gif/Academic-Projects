@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Your Wishlist</h1>
+        <ul class="list-group">
+            {% for item in wishlist %}
+                <li class="list-group-item">
+                    <strong>{{ item.course.course_name }}</strong>
+                    <p>{{ item.course.description }}</p>
+                    <p><em>Duration: {{ item.course.duration }}</em> | <em>Level: {{ item.course.skill_level }}</em></p>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('client_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+</body>
+</html>
+
